@@ -17,7 +17,7 @@ PORT = process.env.PORT || 8000;
 
 const serveFile = async (filePath, contentType, response) => {
   try {
-    const data = await fsPromise.readFil(
+    const data = await fsPromise.readFile(
       filePath,
       !contentType.includes("image") ? "utf-8" : ""
     );
@@ -27,7 +27,7 @@ const serveFile = async (filePath, contentType, response) => {
     console.log(error);
     myEmitter.emit(
       "log",
-      `${error.name}\t\t${error.message}\t\t${error}`,
+      `${error.name}\t\t${error.message}\t\t${error.fileName}\t\t${error.columnNumber}:${error.lineNumber}\t\t${error.cause}`,
       "errorLogs.txt"
     );
     response.statusCode = 500;
