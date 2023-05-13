@@ -1,0 +1,19 @@
+{
+  "name": "node_server",
+  "version": "1.0.0",
+  "description": "/* How Node.js is different from vanilla js */\r //1)Node runs on a server - not in a browser (backed not frontend)\r //2)The console is the terminal window\r //3)global object instead of window object\r //console.log(global)\r //4)Has common core modules that we will explore\r //5)CommonJS modules instead of ES6 modules\r //6)Missing some JS APISs like fetch",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^2.30.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
