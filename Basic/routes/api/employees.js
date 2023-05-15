@@ -15,6 +15,6 @@ router
   .put(updateEmployee)
   .delete(deleteEmployee);
 
-router.route("/:id").get(getEmployee);
+router.route("/:userId").get(getEmployee);
 
 module.exports = router;
