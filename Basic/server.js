@@ -7,8 +7,16 @@ const { Logger } = require("./middleware/LogEvents");
 const ErrorHandler = require("./middleware/ErrorHandler");
 PORT = process.env.PORT || 8000;
 
+//express json
+app.use(express.json());
+
 //serve static files
 app.use(express.static(path.join(__dirname, "/public")));
+app.use("/subdir", express.static(path.join(__dirname, "/public")));
+
+//router
+app.use("/subdir", require("./routes/subdir"));
+app.use("/employees", require("./routes/api/employees"));
 
 app.use(Logger);
 
@@ -36,7 +44,7 @@ app.get("^/blog(.html)?", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "blog.html"));
 });
 
-//error handler 
+//error handler
 app.use(ErrorHandler);
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
