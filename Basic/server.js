@@ -23,6 +23,8 @@ app.use(express.static(path.join(__dirname, "/public")));
 //router
 app.use("/subdir", require("./routes/subdir"));
 app.use("/employees", require("./routes/api/employees"));
+app.use("/users", require("./routes/api/users"));
+app.use("/auth", require("./routes/api/userAuth"));
 
 app.get("^/$|/index(.html)?|/home(.html)?", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "index.html"));
