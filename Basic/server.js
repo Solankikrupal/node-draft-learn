@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const cors = require("cors");
+const corsOptions = require("./config/corsOption");
 const { Logger } = require("./middleware/LogEvents");
 const ErrorHandler = require("./middleware/ErrorHandler");
 PORT = process.env.PORT || 8000;
@@ -10,31 +11,18 @@ PORT = process.env.PORT || 8000;
 //express json
 app.use(express.json());
 
+//cors options
+app.use(cors(corsOptions));
+
+//Logging req in reqlog files
+app.use(Logger);
+
 //serve static files
 app.use(express.static(path.join(__dirname, "/public")));
-app.use("/subdir", express.static(path.join(__dirname, "/public")));
 
 //router
 app.use("/subdir", require("./routes/subdir"));
 app.use("/employees", require("./routes/api/employees"));
-
-app.use(Logger);
-
-//Cross Origin Resourse Sharing
-const whiteList = ["https://www.google.com"];
-
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (whiteList.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not Allowed by Cors"));
-    }
-    optionsSuccessStatus: 200;
-  },
-};
-
-app.use(cors(corsOptions));
 
 app.get("^/$|/index(.html)?|/home(.html)?", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "index.html"));
@@ -46,6 +34,7 @@ app.get("^/blog(.html)?", (req, res) => {
 
 //error handler
 app.use(ErrorHandler);
+
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });
