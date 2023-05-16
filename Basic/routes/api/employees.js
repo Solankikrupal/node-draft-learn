@@ -6,7 +6,7 @@ const {
   updateEmployee,
   deleteEmployee,
   getEmployee,
-} = require("../../controllers/employeesControllers");
+} = require("../../controllers/employeesController");
 
 router
   .route("/")

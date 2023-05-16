@@ -17,3 +17,5 @@ type of middleware
 
 
 
+//Generate Secret key 
+require('crypto').randomBytes(64).toString('hex')

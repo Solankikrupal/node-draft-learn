@@ -1,9 +1,9 @@
 //Cross Origin Resourse Sharing
-const whiteList = ["https://www.google.com"];
+const allowedOrigin = ["https://www.google.com"];
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (whiteList.indexOf(origin) !== -1 || !origin) {
+    if (allowedOrigin.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
       callback(new Error("Not Allowed by Cors"));

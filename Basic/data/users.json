@@ -1,14 +1,1 @@
-[
-  {
-    "username": "jack bill",
-    "password": "$2b$10$vOG6AFshklsotFXB9UtYx.wwRjbQrd9Xe2vvrgXM6C6g/jlxf8Yym"
-  },
-  {
-    "username": "jack",
-    "password": "$2b$10$qDHc694nQ9GX0yPv2eDzPeA8C9Nlh0DHuf1c3bIz0s6VUkUO0Qr2S"
-  },
-  {
-    "username": "jack till",
-    "password": "$2b$10$uZdAWNdtDUtndLS.hCcRiecej6zQFd2o9W.sJmqmC2KyrN1Ut2Q8K"
-  }
-]
+[{"username":"jack bill","password":"$2b$10$vOG6AFshklsotFXB9UtYx.wwRjbQrd9Xe2vvrgXM6C6g/jlxf8Yym"},{"username":"jack till","password":"$2b$10$uZdAWNdtDUtndLS.hCcRiecej6zQFd2o9W.sJmqmC2KyrN1Ut2Q8K"},{"username":"jack","password":"$2b$10$qDHc694nQ9GX0yPv2eDzPeA8C9Nlh0DHuf1c3bIz0s6VUkUO0Qr2S","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODQxNjU5ODMsImV4cCI6MTY4NDI1MjM4M30.exA_3CalT6FzCBxlSwqAczzk1SOcr5F75rt3tb3ljvc"},{"username":"Jerry","password":"$2b$10$Z.ABapheX3nzaOxxqySrQO6EiKXsEIZgTTFGPVZyVVEFd4uue8HMC"},{"username":"Jerry","password":"$2b$10$rYQZO89PEag3aZBTJtuCeu6fiPqa/kIjXtZEpsiXPI7a9KuKA2uhu"},{"username":"Jerry","password":"$2b$10$XB.nygcWHcaRW53TtFU/8.4kUn1e4fu567PYnWu85IPk5/h0zN0OC"},{"username":"Jerry","password":"$2b$10$hpBv3t3JiOVNxBe08LIUvOyZYGGYMWD/H5Y/y1xWUQq14lPICWH5S"},{"username":"Tom","password":"$2b$10$Sj9L/Qv6JBdI8oGlMlUOpejW1EYz08V40wO.10WMaK2TnwVWmR3Zm","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODQyMTc3MTEsImV4cCI6MTY4NDMwNDExMX0.j69OyDDcgQJRNnEkivAdW87bzxJkZQExocLdURxH4Ts"},{"username":"Batman","password":"$2b$10$9MMo9lNIoVaj250FMAGJfuUanaBxYEqZqA8v7hRt5wqRj1PcObjLa","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODQyMTc5MjEsImV4cCI6MTY4NDMwNDMyMX0.MpVUgfDtZTR7CdroKeISRVvTQNDYilR39tufaCM_0sc"},{"username":"Superman","password":"$2b$10$IXVdoxwJcYeo.BAbk8oREOxJFp79VAyVu3M5iA/dVSK1JVMnRzb42","refreshToken":""}]
