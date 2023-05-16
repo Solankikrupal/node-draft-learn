@@ -22,10 +22,11 @@ const handleLogin = async function (req, res) {
   try {
     const matchPwd = await bcrypt.compare(pwd, User.password);
     if (matchPwd) {
+      const roles = Object.values(User.roles);
       //jwt token
       //access token
       let accessToken = jwt.sign(
-        { user: User.username },
+        { userInfo: { user: User.username, roles: roles } },
         process.env.ACCESS_TOKEN_SECRET,
         {
           expiresIn: "30s",
@@ -52,8 +53,8 @@ const handleLogin = async function (req, res) {
       );
       res.cookie("jwt", refreshToken, {
         httpOnly: true,
-        sameSite: "None", // in frontend site in network header column their will generate some error
-        secure: true, // on same place after adding samesite to None also add this on clear Cookies 
+        sameSite: "None", // in frontend site in network header column their will generate some error 
+       // secure: true, // on same place after adding samesite to None also add this on clear Cookies// keep only for chrome not for testing
         maxAge: 24 * 60 * 60 * 1000,
       });
 

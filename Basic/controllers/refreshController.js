@@ -17,8 +17,9 @@ const handleRefreshToken = (req, res) => {
   if (!User) return res.status(409).json({ message: "User is not authorized" });
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
     if (err || User.username !== decoded.user) return res.sendStatus(403);
+    const roles = Object.values(User.roles);
     const accessToken = jwt.sign(
-      { username: decoded.username },
+      { userInfo: { user: decoded.username, roles: roles } },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "30s" }
     );
