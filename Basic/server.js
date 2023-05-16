@@ -1,16 +1,21 @@
 //common core modules
+require("dotenv").config();
+PORT = process.env.PORT || 8000;
 const express = require("express");
 const app = express();
 const path = require("path");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const connectDB = require("./config/connDB");
 const corsOptions = require("./config/corsOption");
 const { Logger } = require("./middleware/LogEvents");
 const ErrorHandler = require("./middleware/ErrorHandler");
-require("dotenv").config();
-PORT = process.env.PORT || 8000;
 const verifyJWT = require("./middleware/verifyJWT");
 const cookieParser = require("cookie-parser");
 const crendentials = require("./middleware/credentials");
+
+//mongodb connect
+connectDB();
 //express json
 app.use(express.json());
 //handle options crendential check - before cors
@@ -49,7 +54,9 @@ app.get("^/blog(.html)?", (req, res) => {
 
 //error handler
 app.use(ErrorHandler);
-
-app.listen(PORT, () => {
-  console.log(`Server is running on ${PORT}`);
+mongoose.connection.once("open", () => {
+  console.log("Connected to MongoDB");
+  app.listen(PORT, () => {
+    console.log(`Server is running on ${PORT}`);
+  });
 });
