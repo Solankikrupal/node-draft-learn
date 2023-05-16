@@ -1,110 +1,59 @@
-const data = {
-  employees: require("../data/employees.json"),
-  setEmployee: function (data) {
-    this.employees = data;
-  },
+const Employee = require("../model/Employee");
+const getAllEmployees = async (req, res) => {
+  res.status(200).json(await Employee);
 };
 
-const getAllEmployees = (req, res) => {
-  res.json(data.employees);
-};
-
-const createEmployee = (req, res) => {
-  //assign the data to json vars
-  const newEmployee = {
-    userId:
-      data.employees.length !== 0
-        ? data.employees[data.employees.length - 1].userId + 1
-        : 1,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-  };
-
+const createEmployee = async (req, res) => {
   //First name and Last name should not be empty
-  if (!newEmployee.firstName || !newEmployee.lastName) {
+  if (!req.body.firstName || !req.body.lastName) {
     return res
       .status(400)
       .json({ message: "Please Provide First and Last Name" });
   }
 
-  //checking first name avaiable in data file
-  const filter = data.employees.filter(
-    (emp) => emp.firstName === newEmployee.firstName
-  );
-  if (filter.length) {
-    return res.status(400).json({ message: "First name already available" });
-  }
+  //assign the data to json vars
+  const newemployee = await Employee.create({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+  });
 
-  //adding data to json file
-  data.setEmployee([...data.employees, newEmployee]);
-  res.json(data.employees);
+  res.status(200).json(newemployee);
 };
 
-const updateEmployee = (req, res) => {
+const updateEmployee = async (req, res) => {
   //find if user Id is avaiable in database
-  const employee = data.employees.find(
-    (emp) => emp.userId === parseInt(req.body.userId)
-  );
-
+  const employee = await Employee.findOne({ _id: req.body.id });
   //User id not avaiable in database
   if (!employee) {
-    return res
-      .status(400)
-      .json({ message: `User ${req.body.userId} not Found` });
+    return res.status(400).json({ message: `User not Found` });
   }
 
   //if avaiable
   if (req.body.firstName) employee.firstName = req.body.firstName;
   if (req.body.lastName) employee.lastName = req.body.lastName;
-
-  //filter out all other id
-  const filterArray = data.employees.filter(
-    (emp) => emp.userId !== parseInt(req.body.userId)
-  );
-
-  //create array with new update names
-  const unsortArray = [...filterArray, employee];
-
-  //set data and sort an array
-  data.setEmployee(
-    unsortArray.sort((a, b) =>
-      a.userId > b.userId ? 1 : a.userId < b.userId ? -1 : 0
-    )
-  );
-
-  res.json(data.employees);
+  await employee.save();
+  res.status(200).json(employee);
 };
 
-const deleteEmployee = (req, res) => {
+const deleteEmployee = async (req, res) => {
   //find if user Id is avaiable in database
-  const employee = data.employees.find(
-    (emp) => emp.userId === parseInt(req.body.userId)
-  );
+  const employee = await Employee.findOne({ _id: req.body.userId });
 
   if (!employee) {
-    return res
-      .status(400)
-      .json({ message: `User ${req.body.userId} not Found` });
+    return res.status(400).json({ message: `User not Found` });
   }
-  //filter out all other id
-  const filterArray = data.employees.filter(
-    (emp) => emp.userId !== parseInt(req.body.userId)
-  );
-  data.setEmployee([...filterArray]);
-  res.json(data.employees);
+  await employee.deleteOne();
+  res.status(200).json(employee);
 };
 
-const getEmployee = (req, res) => {
+const getEmployee = async (req, res) => {
   //find if user Id is avaiable in database
-  const employee = data.employees.find(
-    (emp) => emp.userId === parseInt(req.params.userId)
-  );
+  const employee = await Employee.findOne({ _id: req.body.userId });
+
   if (!employee) {
-    return res
-      .status(400)
-      .json({ message: `User ${req.params.userId} not Found` });
+    return res.status(400).json({ message: `User not Found` });
   }
-  res.json(employee);
+  res.status(200).json(employee);
 };
 
 module.exports = {

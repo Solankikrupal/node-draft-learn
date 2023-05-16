@@ -1,25 +1,19 @@
 const jwt = require("jsonwebtoken");
+const User = require("../model/User");
 
-const data = {
-  users: require("../data/users.json"),
-  setUser: function (data) {
-    this.users = data;
-  },
-};
-
-const handleRefreshToken = (req, res) => {
+const handleRefreshToken = async (req, res) => {
   const cookie = req.cookies;
   if (!cookie?.jwt) return res.status(401).json({ message: "Not authorized" });
   const refreshToken = cookie.jwt;
-  const User = data.users.find(
-    (person) => person.refreshToken === refreshToken
-  );
-  if (!User) return res.status(409).json({ message: "User is not authorized" });
+  const userFound = await User.findOne({ refreshToken: refreshToken });
+  console.log(userFound)
+  if (!userFound)
+    return res.status(409).json({ message: "User is not authorized" });
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-    if (err || User.username !== decoded.user) return res.sendStatus(403);
-    const roles = Object.values(User.roles);
+    if (err || userFound.username !== decoded.user) return res.sendStatus(403);
+    const roles = Object.values(userFound.roles);
     const accessToken = jwt.sign(
-      { userInfo: { user: decoded.username, roles: roles } },
+      { userInfo: { user: userFound.username, roles: roles } },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "30s" }
     );

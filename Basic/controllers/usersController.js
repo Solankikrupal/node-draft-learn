@@ -18,7 +18,6 @@ const handleNewUser = async (req, res) => {
 
     //store new user
     const results = await User.create({ username: user, password: hspwd });
-    console.log(results);
     return res.status(200).json({ message: `New User ${user} added` });
   } catch (error) {
     console.log(error);
