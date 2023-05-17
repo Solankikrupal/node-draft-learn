@@ -9,6 +9,7 @@ const handleLogin = async (req, res) => {
     return res
       .status(400)
       .json({ message: "Username and Password is required" });
+
   const userFound = await User.findOne({ username: user }).exec();
   if (!userFound)
     return res.status(409).json({ message: "User is not available" });

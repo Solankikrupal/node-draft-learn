@@ -5,8 +5,8 @@ const handleRefreshToken = async (req, res) => {
   const cookie = req.cookies;
   if (!cookie?.jwt) return res.status(401).json({ message: "Not authorized" });
   const refreshToken = cookie.jwt;
-  const userFound = await User.findOne({ refreshToken: refreshToken });
-  console.log(userFound)
+  const userFound = await User.findOne({ refreshToken }).exec(); //no need add both if value and var is same
+  console.log(userFound);
   if (!userFound)
     return res.status(409).json({ message: "User is not authorized" });
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
